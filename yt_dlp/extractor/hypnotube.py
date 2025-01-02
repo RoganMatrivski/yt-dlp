@@ -1,5 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
 
 from .common import InfoExtractor
 
@@ -14,12 +12,11 @@ class HypnotubeIE(InfoExtractor):
             'ext': 'mp4',
             'title': 'Feminine Energy - VR SBS',
             'thumbnail': r're:^https?://.*\.jpg$',
-            # TODO more properties, either as:
             # * A value
             # * MD5 checksum; start the string with md5:
             # * A regular expression; start the string with re:
             # * Any Python type (for example int or float)
-        }
+        },
     }
 
     def _real_extract(self, url):
@@ -28,7 +25,6 @@ class HypnotubeIE(InfoExtractor):
 
         self.write_debug(video_id)
 
-        # TODO more code goes here, for example ...
         sources_str = self._html_search_regex(r'sources:\s*(\[\{.+?\}\]),', webpage, 'sources')
         sources = self._parse_json(sources_str, video_id)
         title = self._html_search_regex(r'title:\s*\'(.+?)\',', webpage, 'title')
@@ -42,7 +38,6 @@ class HypnotubeIE(InfoExtractor):
             'formats': [{
                 'url': source['src'],
                 'format': source['type'],
-                'height': source['size']
-            } for source in sources]
-            # TODO more properties (see youtube_dl/extractor/common.py)
+                'height': source['size'],
+            } for source in sources],
         }
